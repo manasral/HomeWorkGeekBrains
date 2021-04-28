@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-    private static final int SIZE = 3;
+    private static final int SIZE = 5;
+    public static final int DOTS_TO_WIN = 4;
 
     private static final char DOT_EMPTY = '•';
     private static final char DOT_X = 'X';
@@ -56,22 +57,117 @@ public class TicTacToe {
     }
 
 
-    private static boolean isWin(char symbol) {
-        if ( map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol ) return true;
-        if ( map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol ) return true;
-        if ( map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol ) return true;
-
-        if ( map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol ) return true;
-        if ( map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol ) return true;
-        if ( map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol ) return true;
-
-        if ( map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol ) return true;
-        if ( map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol ) return true;
-
-        return false;
-
-
+//    private static boolean isWin(char symbol) {
+//        if ( map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol ) return true;
+//        if ( map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol ) return true;
+//        if ( map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol ) return true;
+//
+//        if ( map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol ) return true;
+//        if ( map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol ) return true;
+//        if ( map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol ) return true;
+//
+//        if ( map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol ) return true;
+//        if ( map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol ) return true;
+//
+//        return false;
+//
+//
+//    }
+public static boolean isWin(char playerDot) {
+    int hor, ver;
+    int diagMain, diagReverse;
+    for (int i = 0; i < SIZE; i++) {
+        hor = 0;
+        ver = 0;
+        for (int j = 0; j < SIZE; j++) {
+            if (map[i][j] == playerDot) {                          // проверяем горизонтальные линии на возможную победу
+                hor++;
+            } else if (map[i][j] != playerDot && hor < DOTS_TO_WIN) {
+                hor = 0;
+            }
+            if (map[j][i] == playerDot) {                          // проверяем вертикальные линии на возможную победу
+                ver++;
+            }   else if (map[j][i] != playerDot && ver < DOTS_TO_WIN) {
+                ver = 0;
+            }
+        }
+        if (hor >= DOTS_TO_WIN || ver >= DOTS_TO_WIN) {
+            System.out.println("По горизонтали или вертикали " + hor + " " + ver);
+            return true;
+        }
     }
+
+    for (int j = 0; j < SIZE; j++) {
+        diagMain = 0;
+        for (int i = 0; i < SIZE; i++) {
+            int k = j + i;
+            if (k < SIZE) {
+                if (map[i][k] == playerDot) {                      // проверяем главную диагональ от центральной оси вправо на возможную победу
+                    diagMain++;
+                } else if (map[i][k] != playerDot && diagMain < DOTS_TO_WIN) {
+                    diagMain = 0;
+                }
+            }
+            if (diagMain >= DOTS_TO_WIN) {
+                System.out.println("По главной диагонали от центральной оси вправо " + diagMain);
+                return true;
+            }
+        }
+    }
+    for (int j = 1; j < SIZE; j++) {
+        diagMain = 0;
+        for (int i = 0; i < SIZE; i++) {
+            int k = j + i;
+            if (k < SIZE) {
+                if (map[k][i] == playerDot) {                      // проверяем главную диагональ от центральной оси вниз на возможную победу
+                    diagMain++;
+                } else if (map[k][i] != playerDot && diagMain < DOTS_TO_WIN) {
+                    diagMain = 0;
+                }
+            }
+            if (diagMain >= DOTS_TO_WIN) {
+                System.out.println("По главной диагонали от центральной оси вниз " + diagMain);
+                return true;
+            }
+        }
+    }
+    for (int j = 0; j < SIZE; j++) {
+        diagReverse = 0;
+        for (int i = 0; i < SIZE; i++) {
+            int k = (SIZE - 1) - i;
+            int l = j + i;
+            if (k >= 0 && l <SIZE) {
+                if (map[l][k] == playerDot) {                     // проверяем побочную диагональ от центральной оси вниз на возможную победу
+                    diagReverse++;
+                } else if (map[l][k] != playerDot && diagReverse < DOTS_TO_WIN) {
+                    diagReverse = 0;
+                }
+            }
+            if (diagReverse >= DOTS_TO_WIN) {
+                System.out.println("По побочной диагонали от центральной оси вниз " + diagReverse);
+                return true;
+            }
+        }
+    }
+    for (int j = 1; j <SIZE; j++) {
+        diagReverse = 0;
+        for (int i = 0; i < SIZE; i++) {
+            int k = (SIZE - 1) - j - i;
+            if (k >= 0) {
+                if (map[i][k] == playerDot) {     // проверяем побочную диагональ от центральной оси влево на возможную победу
+                    diagReverse++;
+                } else if (map[i][k] != playerDot && diagReverse < DOTS_TO_WIN) {
+                    diagReverse = 0;
+                }
+            }
+            if (diagReverse >= DOTS_TO_WIN) {
+                System.out.println("По побочной диагонали от центральной оси влево " + diagReverse);
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
     private static void printMap() {
         printHeader();
