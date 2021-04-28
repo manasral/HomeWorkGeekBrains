@@ -8,15 +8,15 @@ public class HomeWork2 {
 
 
     public static void main(String[] args) {
-        ChekArray();
-        FillArray();
-        ChangeArray();
-        SquareArray();
-        MinMax();
-        fillArray(10,10);
+        chekArray();
+        fillArray();
+        changeArray();
+        squareArray();
+        minMax();
+        fillArray(10, 10);
     }
 
-    public static void ChekArray() {
+    public static void chekArray() {
 
         out.println("Задание 1");
         int[] array1 = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
@@ -26,28 +26,33 @@ public class HomeWork2 {
         }
     }
 
-    public static void FillArray() {
+    public static void fillArray() {
         out.println("Задание 2");
         int[] array2 = new int[100];
         for (int i = 0; i < array2.length; i++) {
-            out.println((i));
+            out.print((i + " "));
+            if ( i == 51 ) {
+                out.println();
+
+            }
         }
     }
 
-    public static void ChangeArray() {
+    public static void changeArray() {
         out.println("Задание 3");
         int[] mas = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         int maxMas = mas.length;
         for (int i = 0; i < maxMas; i++) {
-            if (mas[i] < 6) mas[i] = mas[i] * 2;
+            if ( mas[i] < 6 ) mas[i] = mas[i] * 2;
         }
         for (int i = 0; i < maxMas; i++) {
             out.print(i + "-" + mas[i] + " ");
             out.println();
+
         }
     }
 
-    public static void SquareArray() {
+    public static void squareArray() {
         out.println("Задание 4");
         int a = 5;
         int[][] diagonal = new int[5][5];
@@ -72,16 +77,16 @@ public class HomeWork2 {
     }
 
 
-    public static void MinMax() {
+    public static void minMax() {
         out.println("Задание 6");
         int[] mas = {3, 5, 1, 3, 6, 6, 4, 5};
         int min = mas[0], max = mas[0], i, imin = 0, imax = 0;
         for (i = 0; i != mas.length; i++) {
-            if (mas[i] < min) {
+            if ( mas[i] < min ) {
                 min = mas[i];
                 imin = i;
             }
-            if (mas[i] > max) {
+            if ( mas[i] > max ) {
                 max = mas[i];
                 imax = i;
             }
