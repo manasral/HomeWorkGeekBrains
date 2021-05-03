@@ -27,7 +27,7 @@ public class ResultRunJumpSwim {
         dog.jump(1.5);
 
 
-        dogName = "Boney";
+        dogName = "Boris";
         System.out.println("Dog " + dogName);
         Dog dog2 = new Dog ("");
         dog.run(500);
